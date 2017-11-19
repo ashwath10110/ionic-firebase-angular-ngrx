@@ -18,6 +18,7 @@ import { SupportPage } from '../pages/support/support';
 
 import { ConferenceData } from '../providers/conference-data';
 import { UserData } from '../providers/user-data';
+import { AngularFireAuth } from 'angularfire2/auth';
 
 export interface PageInterface {
   title: string;
@@ -66,30 +67,45 @@ export class ConferenceApp {
     public platform: Platform,
     public confData: ConferenceData,
     public storage: Storage,
-    public splashScreen: SplashScreen
+    public splashScreen: SplashScreen,
+    afAuth: AngularFireAuth
   ) {
 
-    // Check if the user has already seen the tutorial
-    this.storage.get('hasSeenTutorial')
-      .then((hasSeenTutorial) => {
-        if (hasSeenTutorial) {
-          this.rootPage = TabsPage;
-        } else {
-          this.rootPage = TutorialPage;
-        }
-        this.platformReady()
-      });
+    // // Check if the user has already seen the tutorial
+    // this.storage.get('hasSeenTutorial')
+    //   .then((hasSeenTutorial) => {
+    //     if (hasSeenTutorial) {
+    //       this.rootPage = TabsPage;
+    //     } else {
+    //       this.rootPage = TutorialPage;
+    //     }
+    //     this.platformReady()
+    //   });
 
     // load the conference data
-    confData.load();
+    // confData.load();
 
-    // decide which menu items should be hidden by current login status stored in local storage
-    this.userData.hasLoggedIn().then((hasLoggedIn) => {
-      this.enableMenu(hasLoggedIn === true);
+    const authObserver = afAuth.authState.subscribe(user => {
+      if (!user) {
+        this.rootPage = 'LoginPage';
+        authObserver.unsubscribe();
+      } else {
+        this.rootPage = TabsPage;
+        this.userData.hasLoggedIn().then((hasLoggedIn) => {
+          this.enableMenu(hasLoggedIn === true);
+        });
+        authObserver.unsubscribe();
+      }
     });
-    this.enableMenu(true);
+    // this.enableMenu(true);
 
     this.listenToLoginEvents();
+
+    // decide which menu items should be hidden by current login status stored in local storage
+    // this.userData.hasLoggedIn().then((hasLoggedIn) => {
+    //   this.enableMenu(hasLoggedIn === true);
+    // });
+
   }
 
   openPage(page: PageInterface) {
