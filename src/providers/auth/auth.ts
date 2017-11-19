@@ -23,11 +23,14 @@ export class AuthProvider {
    *    the email address.
    */
   signupUser(email: string, password: string): Promise<any> {
-    return this.afAuth.auth.createUserWithEmailAndPassword(email, password).then((newUser) => {
-      this.afDatabase.object(`/userProfile/${newUser.uid}`).set({
-          email: email
-      });
-    });
+    return this.afAuth.auth.createUserWithEmailAndPassword(email, password);
+    // .then((newUser) => {
+    //   debugger;
+    //   console.log(newUser);
+    //   this.afDatabase.object(`/userProfile/${newUser.uid}`).set({
+    //       email: email
+    //   });
+    // });
   }
 
   /**
