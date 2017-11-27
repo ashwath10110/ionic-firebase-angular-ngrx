@@ -58,7 +58,6 @@ export class UserData {
   };
 
   hasLoggedIn(): Promise<boolean> {
-    debugger;
     return this.storage.get(this.HAS_LOGGED_IN).then((value) => {
       return value === true;
     });
