@@ -1,5 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
+import { CommonModule } from '@angular/common';
+
 import { NgModule, ErrorHandler } from '@angular/core';
 
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
@@ -25,6 +28,7 @@ import { SpeakerListPage } from '../pages/speaker-list/speaker-list';
 import { TabsPage } from '../pages/tabs-page/tabs-page';
 import { TutorialPage } from '../pages/tutorial/tutorial';
 import { SupportPage } from '../pages/support/support';
+import { TestPage } from '../pages/test/test';
 
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
@@ -33,6 +37,7 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { ConferenceData } from '../providers/conference-data';
 import { UserData } from '../providers/user-data';
 import { AuthProvider } from '../providers/auth/auth';
+import { FirebaseProvider } from '../providers/firebase/firebase';
 
 export const config = {
     apiKey: "AIzaSyCfhMtKkY-H7DHKTCNiYs2AVNroXQz7M6A",
@@ -59,11 +64,15 @@ export const config = {
         SpeakerListPage,
         TabsPage,
         TutorialPage,
-        SupportPage
+        SupportPage,
+        TestPage
     ],
     imports: [
         BrowserModule,
         HttpModule,
+        // HttpClient,
+        HttpClientModule,
+        CommonModule,
         AngularFireModule.initializeApp(config),
         AngularFireAuthModule,
         AngularFireDatabaseModule,
@@ -81,7 +90,8 @@ export const config = {
                 { component: SupportPage, name: 'SupportPage', segment: 'support' },
                 { component: LoginPage, name: 'LoginPage', segment: 'login' },
                 { component: AccountPage, name: 'AccountPage', segment: 'account' },
-                { component: SignupPage, name: 'SignupPage', segment: 'signup' }
+                { component: SignupPage, name: 'SignupPage', segment: 'signup' },
+                { component: TestPage, name: 'TestPage', segment: 'test' }
             ]
         }),
         IonicStorageModule.forRoot()
@@ -102,7 +112,8 @@ export const config = {
         SpeakerListPage,
         TabsPage,
         TutorialPage,
-        SupportPage
+        SupportPage,
+        TestPage
     ],
     providers: [
         { provide: ErrorHandler, useClass: IonicErrorHandler },
@@ -110,7 +121,8 @@ export const config = {
         UserData,
         InAppBrowser,
         AuthProvider,
-        SplashScreen
+        SplashScreen,
+        FirebaseProvider
     ]
 })
 export class AppModule { }

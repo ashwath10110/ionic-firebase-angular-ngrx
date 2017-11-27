@@ -16,6 +16,8 @@ import { SchedulePage } from '../pages/schedule/schedule';
 import { SpeakerListPage } from '../pages/speaker-list/speaker-list';
 import { SupportPage } from '../pages/support/support';
 
+import { TestPage } from '../pages/test/test';
+
 import { ConferenceData } from '../providers/conference-data';
 import { UserData } from '../providers/user-data';
 import { AngularFireAuth } from 'angularfire2/auth';
@@ -56,7 +58,8 @@ export class ConferenceApp {
   loggedOutPages: PageInterface[] = [
     { title: 'Login', name: 'LoginPage', component: LoginPage, icon: 'log-in' },
     { title: 'Support', name: 'SupportPage', component: SupportPage, icon: 'help' },
-    { title: 'Signup', name: 'SignupPage', component: SignupPage, icon: 'person-add' }
+    { title: 'Signup', name: 'SignupPage', component: SignupPage, icon: 'person-add' },
+    { title: 'Test', name: 'TestPage', component: TestPage,  icon: 'information-circle' }
   ];
   rootPage: any;
 
